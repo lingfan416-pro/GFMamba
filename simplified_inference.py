@@ -65,12 +65,12 @@ class SimplifiedProcessor:
         print(f"✅ 文本特征形状: {features.shape}")
         return features.astype(np.float32)
     
-    def process_mov_file(self, mov_path):
-        """处理MOV文件"""
-        print(f"🎬 处理MOV文件: {mov_path}")
+    def process_mov_file(self, video_path):
+        """处理视频文件"""
+        print(f"🎬 处理video文件: {video_path}")
         
         # 分析视频信息
-        cap = cv2.VideoCapture(mov_path)
+        cap = cv2.VideoCapture(video_path)
         if not cap.isOpened():
             print("❌ 无法打开视频文件")
             return np.random.normal(0, 1, (50, 20)).astype(np.float32), np.random.normal(0, 1, (50, 5)).astype(np.float32)
@@ -97,8 +97,18 @@ class SimplifiedProcessor:
             print("🔊 提取音频...")
             # 直接使用librosa处理视频文件
             try:
-                audio, sr = librosa.load(mov_path, sr=16000)
-                print("✅ librosa音频提取成功")
+                try:
+                    audio, sr = librosa.load(video_path, sr=16000)
+                    print("✅ librosa音频提取成功")
+                except:
+                    # librosa失败则使用imageio_ffmpeg提取wav
+                    print("⚠️ librosa提取失败,尝试使用imageio_ffmpeg...")
+                    import imageio_ffmpeg
+                    ffmpeg_path = imageio_ffmpeg.get_ffmpeg_exe()
+                    ffmpeg_cmd = f'"{ffmpeg_path}" -i "{video_path}" -vn -acodec pcm_s16le -ar 16000 -ac 1 "{audio_path}" -y'
+                    subprocess.run(ffmpeg_cmd, shell=True, check=True)
+                    audio, sr = librosa.load(audio_path, sr=16000)
+                    print("✅ imageio_ffmpeg音频提取成功")
                 # 直接处理音频特征
                 mfcc = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=20)
                 
@@ -116,7 +126,7 @@ class SimplifiedProcessor:
             
             # 提取视频特征
             print("🎥 提取视频特征...")
-            video_features = self.extract_video_features(mov_path)
+            video_features = self.extract_video_features(video_path)
             
             return audio_features, video_features
             
@@ -248,20 +258,23 @@ def main():
     print("=" * 60)
     
     # 您的文件路径
-    txt_path = "/Users/liyunfeng/Desktop/test2.txt"
-    mov_path = "/Users/liyunfeng/Downloads/IMG_0727.MOV"
+    video_path = "C:/Users/21956\OneDrive\Desktop/testD.mov"
+    from transcriber import WhisperTranscriber
+    wt = WhisperTranscriber(model_size="small", device="cpu", compute_type="int8")
+    # 固定英文识别
+    txt_path = wt.transcribe_to_txt_sidecar(video_path, language="en")
     
     # 检查文件是否存在
     if not os.path.exists(txt_path):
         print(f"❌ 文本文件不存在: {txt_path}")
         return
     
-    if not os.path.exists(mov_path):
-        print(f"❌ 视频文件不存在: {mov_path}")
+    if not os.path.exists(video_path):
+        print(f"❌ 视频文件不存在: {video_path}")
         return
     
     print(f"📝 文本文件: {txt_path}")
-    print(f"🎬 视频文件: {mov_path}")
+    print(f"🎬 视频文件: {video_path}")
     print()
     
     try:
@@ -272,7 +285,7 @@ def main():
         text_features = processor.process_text_file(txt_path)
         
         # 处理MOV文件
-        audio_features, video_features = processor.process_mov_file(mov_path)
+        audio_features, video_features = processor.process_mov_file(video_path)
         
         # 进行情感分析
         sentiment_score, detailed_results = processor.simple_sentiment_analysis(
@@ -297,20 +310,14 @@ def main():
         print(f"   文本情感: {detailed_results['text_sentiment']:.4f}")
         print(f"   音频情感: {detailed_results['audio_sentiment']:.4f}")
         print(f"   视频情感: {detailed_results['video_sentiment']:.4f}")
-        
-        # 基于您的文本内容的分析
-        print(f"\n📝 文本内容分析:")
-        print(f"   您的文本包含积极词汇如'encouraging', 'strong', 'viable'")
-        print(f"   整体语调偏向积极和乐观")
-        print(f"   这与分析结果一致")
-        
+
         # 保存结果
         result_data = {
             'sentiment_score': sentiment_score,
             'sentiment_label': sentiment_label,
             'detailed_results': detailed_results,
             'text_path': txt_path,
-            'video_path': mov_path
+            'video_path': video_path
         }
         
         with open('simplified_result.json', 'w', encoding='utf-8') as f:
