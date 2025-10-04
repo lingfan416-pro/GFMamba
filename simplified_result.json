@@ -1,0 +1,11 @@
+{
+  "sentiment_score": 0.18892851984128356,
+  "sentiment_label": "中性",
+  "detailed_results": {
+    "text_sentiment": -0.0010717655532062054,
+    "audio_sentiment": -0.43184715509414673,
+    "video_sentiment": 0.9997044801712036
+  },
+  "text_path": "/Users/liyunfeng/Desktop/test2.txt",
+  "video_path": "/Users/liyunfeng/Downloads/IMG_0727.MOV"
+}
