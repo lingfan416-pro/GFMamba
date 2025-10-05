@@ -113,3 +113,9 @@ The full model will report the regression score, label, and which modalities wer
 - **`librosa` fails to read `.MOV`** — convert the video to a standard codec or extract audio to `.wav` and adjust the script.
 - **`urllib3` OpenSSL warning on macOS** — it is safe to ignore for inference, or install Python compiled against OpenSSL ≥1.1.1.
 - **No internet** — manually download `bert-base-uncased` and copy it into the HuggingFace cache before running the script.
+
+
+## License
+This project is based on [OriginalProjectName]([https://github.com/user/originalrepo](https://github.com/zzhe232/GFMamba)),  
+licensed under the MIT License.  
+Modifications © 2025 YourName.
