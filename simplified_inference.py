@@ -252,13 +252,12 @@ class SimplifiedProcessor:
         
         return float(sentiment)
 
-def main():
+def main(video_path):
     """主函数"""
     print("🎭 GFMamba 简化版零影响方案")
     print("=" * 60)
     
     # 您的文件路径
-    video_path = "C:/Users/21956\OneDrive\Desktop/testD.mov"
     from transcriber import WhisperTranscriber
     wt = WhisperTranscriber(model_size="small", device="cpu", compute_type="int8")
     # 固定英文识别
@@ -319,12 +318,14 @@ def main():
             'text_path': txt_path,
             'video_path': video_path
         }
-        
-        with open('simplified_result.json', 'w', encoding='utf-8') as f:
+
+        output_dir = os.path.dirname(video_path)
+        output_path = os.path.join(output_dir, 'simplified_result.json')
+        with open(output_path, 'w', encoding='utf-8') as f:
             import json
             json.dump(result_data, f, ensure_ascii=False, indent=2)
-        
-        print(f"📄 结果已保存到: simplified_result.json")
+
+        print(f"📄 结果已保存到: {output_path}")
         
     except Exception as e:
         print(f"❌ 运行过程中发生错误: {e}")
