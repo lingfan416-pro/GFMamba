@@ -252,17 +252,11 @@ class SimplifiedProcessor:
         
         return float(sentiment)
 
-def main(video_path):
+def main(video_path, txt_path):
     """主函数"""
     print("🎭 GFMamba 简化版零影响方案")
     print("=" * 60)
-    
-    # 您的文件路径
-    from transcriber import WhisperTranscriber
-    wt = WhisperTranscriber(model_size="small", device="cpu", compute_type="int8")
-    # 固定英文识别
-    txt_path = wt.transcribe_to_txt_sidecar(video_path, language="en")
-    
+
     # 检查文件是否存在
     if not os.path.exists(txt_path):
         print(f"❌ 文本文件不存在: {txt_path}")

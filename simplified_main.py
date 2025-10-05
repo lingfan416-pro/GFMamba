@@ -59,7 +59,12 @@ class ArchiverApp:
             # 运行情感分析
             video_name = os.path.basename(video_path)
             archived_video_path = os.path.join(temp_dir, video_name)
-            inference_main(archived_video_path)
+            # 您的文件路径
+            from transcriber import WhisperTranscriber
+            wt = WhisperTranscriber(model_size="small", device="cpu", compute_type="int8")
+            # 固定英文识别
+            txt_path = wt.transcribe_to_txt_sidecar(archived_video_path, language="en")
+            inference_main(archived_video_path, txt_path)
 
             # 创建下载目录并移动文件
             os.makedirs(downloads_dir, exist_ok=True)
