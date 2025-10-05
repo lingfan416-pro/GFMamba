@@ -1,7 +1,12 @@
-# 🎭 GFMamba: Multimodal Sentiment Analysis with Mamba-based Fusion
+# 🎭 GFMamba: Multimodal Sentiment Analysis with Mamba-based Fusion (CS705 Group 12 Revised Version)
 
-A PyTorch-based implementation of **multimodal sentiment analysis**, using the **GFMamba** model that integrates **text**, **audio**, and **vision** features for tasks like CMU-MOSI and CMU-MOSEI.
+This project is a modified version based on the content of **https://github.com/zzhe232/GFMamba.git**. It includes the following contents
+- A PyTorch-based implementation of **multimodal sentiment analysis**, using the **GFMamba** model that integrates **text**, **audio**, and **vision** features for tasks like CMU-MOSI and CMU-MOSEI.
+- A **graphical desktop program** is made according to the project plan of CS705 Group 12, which is convenient for data collection during the experiment and batch processing of files.
+- Two **automated processing scripts** were developed because the complete model was developed solely based on Linux + NVIDIA CUDA. To enable the model to be used on general devices, we created a simplified inference version of the automated processing script and a full modle inference version (linux/MacOS) of the automated processing script.
 
+
+if you interested in GFMamba project ,concat us by email zzhe232@aucklanduni.ac.nz
 ---
 
 ## 🧠 Model Overview
@@ -31,8 +36,6 @@ pip install -r requirements.txt
 ```bash
 pip install pytorch>2.1 python>3.9
 
-if you interested in this project,concat us by email zzhe232@aucklanduni.ac.nz
-
 ---
 
 ## 🚀 Quick Start (macOS & Windows)
@@ -54,40 +57,39 @@ pip install -r requirements.txt
 
 > ℹ️ **Note:** The first run downloads the `bert-base-uncased` checkpoint from HuggingFace. Ensure the machine has internet access or pre-populate the cache (`~/.cache/huggingface` on macOS/Linux, `%USERPROFILE%\.cache\huggingface` on Windows).
 
-### 2. Point to your input files
+### 2. Preparation of the input files
 
-1. Place the `.txt` transcript and `.MOV` video anywhere on the machine.
-2. Open `simplified_inference.py` and update the file paths near the bottom of the script:  
-   ```python
-   txt_path = "<absolute path to your transcript>"
-   mov_path = "<absolute path to your MOV video>"
-   ```
-   Absolute paths work best (e.g., `C:\\Users\\alice\\Desktop\\sample.txt` on Windows or `/Users/alice/Desktop/sample.txt` on macOS).
+Only the video file(.MOV/.MP4) needs to be provided. The project has an automatic script that can obtain the audio file(.WAV) and interview transcript(.TXT) of the video.
 
 ### 3. Run the simplified inference
 
 From the project root (`GFMamba-main`):
 
 ```bash
-python3 simplified_inference.py   # macOS / Linux
+python3 simplified_main.py   # macOS / Linux
 ```
 
 ```powershell
-python simplified_inference.py    # Windows
+python simplified_main.py    # Windows
 ```
+This is a graphical desktop program.
+- Allows users to select local video files (such as MP4, MOV) through a visual interface.
+- Automatically performs a series of processes on the selected videos, including archiving, transcription, and sentiment analysis.
+- The archived and analyzed files will be automatically saved to the designated folder, making it convenient for users to access and manage them.
 
 The script prints:
 
 - Device information (CPU/GPU)
 - Extracted feature shapes for text, audio, and video
 - Sentiment scores for each modality and the fused output
-- The final label (`正面` / `中性` / `负面`)
+- The final label (Positive / Neutral / Negative)
 
-It also writes the latest result to `simplified_result.json` in the repository root.
+It also writes the latest result to `simplified_result.json` in the repository root. All the results will be automatically downloaded to the default download path of the computer and saved in the archived_video folder according to the timestamp.
 
-### 4. Optional: Use the full GFMamba model
+### 4. Optional: Use the full GFMamba model(Linux/MacOS only)
 
-If you want to use the full model instead of the heuristic version:
+In the CPU-only environment of Windows (torch==2.8.0+cpu), when running "pip install mamba-ssm", pip failed to find a wheel that is compatible with the platform. Therefore, it switched to compiling from source code, which made it difficult to use mamba-ssm on Windows.
+If you want to use the full model instead of the heuristic version, you need to have the following configurations: # Linux + NVIDIA GPU + CUDA or # MacOS:
 
 1. Install the extra dependency:
    ```bash
