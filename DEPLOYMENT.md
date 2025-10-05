@@ -1,122 +1,121 @@
-# 🎭 GFMamba 部署指南
+# 🎭 GFMamba Deployment Guides
 
-## 📋 项目概述
+## 📋 Project Overview
 
-GFMamba是一个基于Mamba架构的多模态情感分析模型，能够整合文本、音频和视觉特征进行情感预测。本项目支持CMU-MOSI等数据集，可用于回归式情感分析任务。
+GFMamba is a multimodal sentiment analysis model based on the Mamba architecture that integrates text, audio, and visual features for sentiment prediction. This project supports datasets such as CMU-MOSI and can be used for regression-based sentiment analysis tasks.
 
-## 🧠 模型架构
+## 🧠 Model architecture
 
-**GFMamba** 模型包含以下核心组件：
+**GFMamba** The model contains the following core components:
+- **ModalityProjector**: Projects features from different modalities to a unified dimension
+- **ContextExtractor**: Extracts contextual information from each modality
+- **TGMamba**: A cross-modal fusion module based on Mamba
+- **IntraModalEnhance**: Enhances internal features of each modality
+- **Graph Fusion**: Final multimodal feature fusion
 
-- **模态投影器** (ModalityProjector): 将不同模态特征投影到统一维度
-- **上下文提取器** (ContextExtractor): 提取各模态的上下文信息
-- **TGMamba**: 基于Mamba的跨模态融合模块
-- **模态内增强器** (IntraModalEnhancer): 增强各模态内部特征
-- **图融合** (graph_fusion): 最终的多模态特征融合
+## 🛠️ Installation Requirements
 
-## 🛠️ 安装要求
-
-### 系统要求
+### System Requirements
 - **Python**: >= 3.9
 - **PyTorch**: >= 2.1.0
-- **CUDA**: 11.8+ (可选，用于GPU加速)
+- **CUDA**: 11.8+ (Optional，using GPU to speed up)
 
-### 依赖安装
+### Installation Dependency
 ```bash
-# 克隆项目
+# Clone project
 git clone <repository-url>
 cd GFMamba-main
 
-# 安装依赖
+# Install dependency
 pip install -r requirements.txt
 ```
 
-## 📁 项目结构
+## 📁 project structure
 
 ```
 GFMamba-main/
 ├── configs/
-│   └── mosi_train.yaml          # 模型配置文件
-├── core/                        # 核心功能模块
-│   ├── dataset.py              # 数据集处理
-│   ├── losses.py               # 损失函数
-│   ├── metric.py               # 评估指标
-│   ├── optimizer.py            # 优化器
-│   ├── scheduler.py            # 学习率调度器
-│   └── utils.py                # 工具函数
-├── models/                      # 模型定义
-│   ├── GFMamba.py              # 主模型
-│   ├── enhance.py              # 增强模块
-│   ├── gl_feature.py           # 全局特征
-│   ├── graph_fusion.py         # 图融合
-│   ├── Intramodel.py           # 模态内增强
-│   └── mamba/                  # Mamba相关模块
-├── ckpt/                       # 模型权重
+│   └── mosi_train.yaml          # Model config file
+├── core/                        # Model main function
+│   ├── dataset.py              # dataset process
+│   ├── losses.py               # loss functions
+│   ├── metric.py               # evalutation metrics
+│   ├── optimizer.py            # optimizer
+│   ├── scheduler.py            # learning scheduler
+│   └── utils.py                # utils functions
+├── models/                      # model definitions
+│   ├── GFMamba.py              # Main entry
+│   ├── enhance.py              # enhance module
+│   ├── gl_feature.py           # global feature
+│   ├── graph_fusion.py         # graph fusion
+│   ├── Intramodel.py           # Intra model enhancement
+│   └── mamba/                  # Mamba related models
+├── ckpt/                       # the weight of models
 │   └── mosi/
 │       └── best_valid_model_seed_42.pth
-├── inference.py                # 推理脚本
-├── data_preprocessing.py       # 数据预处理
+├── inference.py                # inference scripts
+├── data_preprocessing.py       # data preprocessing 
 ├── app.py                      # Web API
-├── train.py                    # 训练脚本
-└── requirements.txt            # 依赖列表
+├── train.py                    # train script
+└── requirements.txt            # depenency list
 ```
 
-## 🚀 快速开始
+## 🚀 Quick start
 
-### 1. 命令行推理
+### 1. command line inference
 
 ```bash
-# 基本推理
+# basic inference
 python inference.py
 
-# 使用自定义文件
+# use self defined files 
 python inference.py --text "Your text here" --audio "audio.wav" --video "video.mp4"
 ```
 
-### 2. Web API服务
+### 2. Web API Service
 
 ```bash
-# 启动Web服务
+# Startup Web Service
 python app.py
 
-# 访问Web界面
+# Visit Web UI
 # http://localhost:5000
 ```
 
-### 3. 数据预处理
+### 3. Data Preprocessing
 
 ```bash
-# 运行数据预处理测试
+# running data pre-processing test
 python data_preprocessing.py
 ```
 
-## 📊 输入格式
+## 📊 Inputs
 
-### 文本输入
-- **格式**: 字符串
-- **处理**: BERT编码 (768维)
-- **序列长度**: 最大512 tokens
+### Text Inputs
+- **format**: String
+- **processing**: BERT encoding (768)
+- **length of sequence**: Maximum 512 tokens
 
-### 音频输入
-- **格式**: WAV, MP3, M4A
-- **采样率**: 16kHz
-- **特征**: MFCC (20个系数)
-- **序列长度**: 50帧
+### Audio Input
+- **Format**: WAV, MP3, M4A
+- **Sampling rate**: 16kHz
+- **Features**: MFCC (20个系数)
+- **Length of Sequence**: 50 frames
 
-### 视频输入
-- **格式**: MP4, AVI, MOV
-- **分辨率**: 自动调整到64x64
-- **特征**: 5个视觉统计特征
-- **序列长度**: 50帧
+### Video Input
+- **Format**: MP4, AVI, MOV
+- **Resolution**: Automatically adjust to 64x64
+- **Features**: 5 visual statistical features
+- **Length of Sequence**: 50 frames
 
-## 🔧 配置说明
+## 🔧 Configration
 
-### 模型配置 (configs/mosi_train.yaml)
+### Model Configuration (configs/mosi_train.yaml)
 
 ```yaml
 model:
-  input_dim: [768, 20, 5]     # [文本, 音频, 视频]维度
-  dim: 64                     # 模型内部特征维度
+  input_dim: [768, 20, 5]     # [Script, audio, video]Dimension
+  dim: 64                     # Model internal feature dimensions
   ContextExtractor:
     conv_kernel_size: 5
     hidden_ratio: 2
@@ -139,24 +138,24 @@ model:
     fusion_hidden: 24
 ```
 
-## 📈 训练模型
+## 📈 Training model
 
 ```bash
-# 使用默认配置训练
+# Train with default configuration
 python train.py
 
-# 使用自定义配置
+# Use custom configuration
 python train.py --config_file your_config.yaml --seed 42
 ```
 
-## 🌐 API使用
+## 🌐 API Usage
 
-### Web界面
-访问 `http://localhost:5000` 使用图形界面进行情感分析。
+### Web UI
+visit `http://localhost:5000` Use a graphical interface to perform sentiment analysis.
 
 ### REST API
 
-#### 情感分析
+#### sentiment analysis
 ```bash
 curl -X POST http://localhost:5000/analyze \
   -F "text=This is a great movie!" \
@@ -164,17 +163,17 @@ curl -X POST http://localhost:5000/analyze \
   -F "video=@video.mp4"
 ```
 
-#### 健康检查
+#### health check
 ```bash
 curl http://localhost:5000/health
 ```
 
-#### API信息
+#### API info
 ```bash
 curl http://localhost:5000/api/info
 ```
 
-### 响应格式
+### response format
 ```json
 {
   "success": true,
@@ -191,39 +190,39 @@ curl http://localhost:5000/api/info
 }
 ```
 
-## 🎯 使用示例
+## 🎯 Usage example
 
-### Python代码示例
+### Python code example
 
 ```python
 from inference import GFMambaInference
 
-# 初始化推理器
+# Initialize the reasoner
 inference = GFMambaInference(
     config_path='configs/mosi_train.yaml',
     model_path='ckpt/mosi/best_valid_model_seed_42.pth'
 )
 
-# 情感分析
+# sentiment analysis
 result = inference.predict_sentiment(
     text="This is a wonderful day!",
     audio_path="audio.wav",
     video_path="video.mp4"
 )
 
-print(f"情感分数: {result['sentiment_score']}")
-print(f"情感标签: {result['sentiment_label']}")
+print(f"Emotional score: {result['sentiment_score']}")
+print(f"Emotional label: {result['sentiment_label']}")
 ```
 
-### 数据预处理示例
+### Data Preprocessing Example
 
 ```python
 from data_preprocessing import DataPreprocessor
 
-# 初始化预处理器
+# Initialize preprocessor
 preprocessor = DataPreprocessor()
 
-# 创建样本数据
+# Creat samplong data
 sample = preprocessor.create_sample_data(
     text="Sample text",
     audio_path="audio.wav",
@@ -232,49 +231,49 @@ sample = preprocessor.create_sample_data(
 )
 ```
 
-## 🔍 故障排除
+## 🔍 Debugging
 
-### 常见问题
+### FAQ
 
-1. **模型加载失败**
+1. **Model loading failed**
    ```
-   错误: 无法加载模型权重
-   解决: 检查ckpt/mosi/目录下是否有预训练模型文件
-   ```
-
-2. **CUDA内存不足**
-   ```
-   错误: CUDA out of memory
-   解决: 减少batch_size或使用CPU模式
+   Error: Unable to load model weights
+  Solution: Check if there is a pre-trained model file in the ckpt/mosi/ directory
    ```
 
-3. **依赖包冲突**
+2. **CUDA out of memory**
    ```
-   错误: ImportError
-   解决: 重新创建虚拟环境并安装依赖
+ Error: CUDA out of memory
+ Solution: Reduce batch_size or use CPU mode
    ```
 
-### 调试模式
+3. **Dependency package conflict**
+   ```
+  Error: ImportError
+  Solution: Recreate the virtual environment and install dependencies
+   ```
+
+### debug mode
 ```bash
-# 启用Flask调试模式
+# Enable Flask debug mode
 export FLASK_DEBUG=1
 python app.py
 ```
 
-## 📊 性能优化
+## 📊 Performance optimization
 
-### GPU加速
+### GPU Speed up
 ```python
-# 检查GPU可用性
+# Check GPU availability
 import torch
-print(f"CUDA可用: {torch.cuda.is_available()}")
-print(f"GPU数量: {torch.cuda.device_count()}")
+print(f"CUDA availability: {torch.cuda.is_available()}")
+print(f"Number of GPUs: {torch.cuda.device_count()}")
 ```
 
-### 批处理
-对于大量数据，建议使用批处理：
+### Batch processing
+For large amounts of data, batch processing is recommended:
 ```python
-# 批量推理
+# Batch inference
 def batch_inference(inference, data_list):
     results = []
     for data in data_list:
@@ -283,22 +282,24 @@ def batch_inference(inference, data_list):
     return results
 ```
 
-## 🔒 安全考虑
+## 🔒 security considerations
 
-- 文件上传限制：限制文件类型和大小
-- 临时文件清理：自动删除上传的临时文件
-- 数据隐私：不保存用户数据
-- 网络安全：生产环境建议使用HTTPS
+- File upload restrictions: Limit file types and sizes
+- Temporary file cleaning: Automatically delete uploaded temporary files
+- Data privacy: Do not store user data
+- Network security: HTTPS is recommended for production environments
 
-## 📞 技术支持
+## 📞 tech support
 
-如有问题，请联系：
-- 邮箱: zzhe232@aucklanduni.ac.nz
-- 项目地址: [GitHub Repository]
+The origin author:
+If you have any questions, please contact:
+- email: zzhe232@aucklanduni.ac.nz
+- project repo: [GitHub Repository]
 
-## 📄 许可证
+## 📄 License
 
-本项目遵循相应的开源许可证，请查看LICENSE文件了解详情。
+This project follows the corresponding open source license, please see the LICENSE file for details.
+
 
 ---
 
