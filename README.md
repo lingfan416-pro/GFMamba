@@ -5,8 +5,8 @@ This project is a modified version based on the content of **https://github.com/
 - A **graphical desktop program** is made according to the project plan of CS705 Group 12, which is convenient for data collection during the experiment and batch processing of files.
 - Two **automated processing scripts** were developed because the complete model was developed solely based on Linux + NVIDIA CUDA. To enable the model to be used on general devices, we created a simplified inference version of the automated processing script and a full modle inference version (linux/MacOS) of the automated processing script.
 
-
 if you interested in GFMamba project ,concat us by email zzhe232@aucklanduni.ac.nz
+
 ---
 
 ## 🧠 Model Overview
