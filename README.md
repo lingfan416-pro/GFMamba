@@ -26,16 +26,16 @@ datasets use cmu-mosi, if you want to transfer other datasets, you can change th
 
 ### 🔹 Clone and install dependencies
 
-```bash
+```{bash}
 git clone https://github.com/yourusername/gfmamba.git
 cd gfmamba
 pip install -r requirements.txt
-
+```
 ## requirement
 
-```bash
+```{bash}
 pip install pytorch>2.1 python>3.9
-
+```
 ---
 
 ## 🚀 Quick Start (macOS & Windows)
@@ -51,7 +51,7 @@ The repository includes a simplified inference script that lets you run multimod
 
 Then install dependencies inside the virtual environment:
 
-```bash
+```{bash}
 pip install -r requirements.txt
 ```
 
@@ -65,11 +65,11 @@ Only the video file(.MOV/.MP4) needs to be provided. The project has an automati
 
 From the project root (`GFMamba-main`):
 
-```bash
+```{bash}
 python3 simplified_main.py   # macOS / Linux
 ```
 
-```powershell
+```{powershell}
 python simplified_main.py    # Windows
 ```
 This is a graphical desktop program.
@@ -92,16 +92,16 @@ In the CPU-only environment of Windows (torch==2.8.0+cpu), when running "pip ins
 If you want to use the full model instead of the heuristic version, you need to have the following configurations: # Linux + NVIDIA GPU + CUDA or # MacOS:
 
 1. Install the extra dependency:
-   ```bash
+   ```{bash}
    pip install mamba-ssm
    ```
 2. Ensure checkpoints are present (default expects `ckpt/mosi/best_valid_model_seed_42.pth`).
 3. Edit the `user_text` and `user_video` paths at the bottom of `inference.py`.
 4. Run:
-   ```bash
+   ```{bash}
    python3 inference.py        # macOS / Linux
    ```
-   ```powershell
+   ```{powershell}
    python inference.py         # Windows
    ```
 
