@@ -306,14 +306,14 @@ result:
 
 Table A1. Per-scenario configuration and outcomes.
 
-| Scen. | Lighting | Background | Noise | Interviewer | Anxiety | Text | Audio | Video | Composite | Label | File |
-|------:|----------|------------|------:|------------:|--------:|-----:|------:|------:|----------:|:-----:|:----:|
-| 1 | nature | clean | off | live | 6.33 | -0.0010 | -0.6852 | 0.9990 | 0.1043 | neutral | 1.mov |
-| 2 | soft | clean | off | live | 4.00 | -0.0009 | -0.7111 | 0.9986 | 0.0955 | neutral | 2.mov |
-| 3 | soft | mess  | off | live | 4.33 | -0.0010 | -0.7985 | 0.9947 | 0.0651 | neutral | 3.mov |
-| 4 | soft | mess  | on  | live | 7.00 | -0.0011 | -0.6079 | 0.9906 | 0.1272 | neutral | 4.mov |
-| 5 | nature | mess | on  | live | 4.83 | -0.0010 | -0.8522 | 0.9913 | 0.0460 | neutral | 5.mov |
-| 6 | nature | mess | off | live | 2.50 | -0.0011 | -0.8392 | 0.9878 | 0.0492 | neutral | 6.mov |
-| 7 | nature | clean | on  | live | 5.17 | -0.0011 | -0.8095 | 0.9984 | 0.0626 | neutral | 7.mov |
-| 8 | off | clean  | on  | live | 6.67 | -0.0011 | -0.7213 | 0.9979 | 0.0918 | neutral | 8.mov |
-| 9 | off | clean  | off | avatar | 3.00 | -0.0012 | -0.6535 | 0.9979 | 0.1144 | neutral | 9.mov |
+| Scen. | Lighting | Background | Noise | Interviewer | Anxiety | Text | Audio | Video | Composite | Label |
+|------:|----------|------------|------:|------------:|--------:|-----:|------:|------:|----------:|:-----:|
+| 1 | nature | clean | off | live | 6.33 | -0.0010 | -0.6852 | 0.9990 | 0.1043 | neutral |
+| 2 | soft | clean | off | live | 4.00 | -0.0009 | -0.7111 | 0.9986 | 0.0955 | neutral |
+| 3 | soft | mess  | off | live | 4.33 | -0.0010 | -0.7985 | 0.9947 | 0.0651 | neutral |
+| 4 | soft | mess  | on  | live | 7.00 | -0.0011 | -0.6079 | 0.9906 | 0.1272 | neutral |
+| 5 | nature | mess | on  | live | 4.83 | -0.0010 | -0.8522 | 0.9913 | 0.0460 | neutral |
+| 6 | nature | mess | off | live | 2.50 | -0.0011 | -0.8392 | 0.9878 | 0.0492 | neutral |
+| 7 | nature | clean | on  | live | 5.17 | -0.0011 | -0.8095 | 0.9984 | 0.0626 | neutral |
+| 8 | off | clean  | on  | live | 6.67 | -0.0011 | -0.7213 | 0.9979 | 0.0918 | neutral |
+| 9 | off | clean  | off | avatar | 3.00 | -0.0012 | -0.6535 | 0.9979 | 0.1144 | neutral |
