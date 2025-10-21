@@ -303,4 +303,3 @@ This project follows the corresponding open source license, please see the LICEN
 
 ---
 
-**注意**: 本系统专为多模态情感分析设计，支持文本、音频、视频三种模态的输入和融合分析。
