@@ -99,10 +99,11 @@ If you want to use the full model instead of the heuristic version, you need to 
 3. Edit the `user_text` and `user_video` paths at the bottom of `inference.py`.
 4. Run:
    ```{bash}
-   python3 inference.py        # macOS / Linux
+   python3 inference.py        
    ```
+   or
    ```{powershell}
-   python inference.py         # Windows
+   python inference.py         
    ```
 
 The full model will report the regression score, label, and which modalities were used.
