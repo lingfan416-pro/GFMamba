@@ -99,7 +99,7 @@ class SimplifiedProcessor:
             try:
                 try:
                     audio, sr = librosa.load(video_path, sr=16000)
-                    print("✅ librosa音频提取成功")
+                    print("✅ librosa audio extract successfully")
                 except:
                     # librosa失败则使用imageio_ffmpeg提取wav
                     print("⚠️ librosa提取失败,尝试使用imageio_ffmpeg...")
@@ -119,13 +119,13 @@ class SimplifiedProcessor:
                     mfcc = np.pad(mfcc, ((0, 0), (0, pad_width)), mode='constant')
                 
                 audio_features = mfcc.T.astype(np.float32)
-                print(f"✅ 音频特征形状: {audio_features.shape}")
+                print(f"✅ audio features shape: {audio_features.shape}")
             except Exception as e:
                 print(f"❌ 音频提取失败: {e}")
                 audio_features = np.random.normal(0, 1, (50, 20)).astype(np.float32)
             
             # 提取视频特征
-            print("🎥 提取视频特征...")
+            print("🎥 Vedio features extraction...")
             video_features = self.extract_video_features(video_path)
             
             return audio_features, video_features
@@ -151,7 +151,7 @@ class SimplifiedProcessor:
                 pad_width = 50 - mfcc.shape[1]
                 mfcc = np.pad(mfcc, ((0, 0), (0, pad_width)), mode='constant')
             
-            print(f"✅ 音频特征形状: {mfcc.T.shape}")
+            print(f"✅ Audio feature shape: {mfcc.T.shape}")
             return mfcc.T.astype(np.float32)
         except Exception as e:
             print(f"❌ 音频特征提取失败: {e}")
@@ -187,7 +187,7 @@ class SimplifiedProcessor:
             while len(features) < 50:
                 features.append([0.0] * 5)
             
-            print(f"✅ 视频特征形状: {np.array(features).shape}")
+            print(f"✅ Audio feature shape: {np.array(features).shape}")
             return np.array(features, dtype=np.float32)
         except Exception as e:
             print(f"❌ 视频特征提取失败: {e}")
@@ -195,7 +195,7 @@ class SimplifiedProcessor:
     
     def simple_sentiment_analysis(self, text_features, audio_features, video_features):
         """简化的情感分析"""
-        print("🔍 进行简化的情感分析...")
+        print("🔍 Simplified Sentiment analysis...")
         
         # 基于特征的简单情感分析
         # 这里使用启发式方法，实际应用中应该使用训练好的模型
@@ -286,23 +286,23 @@ def main(video_path, txt_path):
         )
         
         # 显示结果
-        print("\n🎉 简化版情感分析结果:")
+        print("\n🎉 Simplified Sentiment Analyze result:")
         print("=" * 60)
-        print(f"🎯 综合情感分数: {sentiment_score:.4f}")
+        print(f"🎯 Comprehensive Sentiment score: {sentiment_score:.4f}")
         
         if sentiment_score < -0.5:
-            sentiment_label = "负面"
+            sentiment_label = "negative"
         elif sentiment_score < 0.5:
-            sentiment_label = "中性"
+            sentiment_label = "neutral"
         else:
-            sentiment_label = "正面"
+            sentiment_label = "positive"
         
-        print(f"📈 情感标签: {sentiment_label}")
+        print(f"📈 Sentimental Label: {sentiment_label}")
         
-        print(f"\n📊 详细分析:")
-        print(f"   文本情感: {detailed_results['text_sentiment']:.4f}")
-        print(f"   音频情感: {detailed_results['audio_sentiment']:.4f}")
-        print(f"   视频情感: {detailed_results['video_sentiment']:.4f}")
+        print(f"\n📊 Detail analysis:")
+        print(f"   Text Script Sentiment: {detailed_results['text_sentiment']:.4f}")
+        print(f"   Audio Sentiment: {detailed_results['audio_sentiment']:.4f}")
+        print(f"   Video Sentiment: {detailed_results['video_sentiment']:.4f}")
 
         # 保存结果
         result_data = {
@@ -319,7 +319,7 @@ def main(video_path, txt_path):
             import json
             json.dump(result_data, f, ensure_ascii=False, indent=2)
 
-        print(f"📄 结果已保存到: {output_path}")
+        print(f"📄 result have been saved in: {output_path}")
         
     except Exception as e:
         print(f"❌ 运行过程中发生错误: {e}")

@@ -34,7 +34,7 @@ class ArchiverApp:
         self.result_label.grid(row=2, column=0, columnspan=3)
 
     def choose_file(self, filetype, entry):
-        filetypes = [('Video files', '*.mp4;*.mov;*.avi')]
+        filetypes = [('Video files', ('*.mp4', '*.mov', '*.avi'))]
         filepath = filedialog.askopenfilename(filetypes=filetypes)
         if filepath:
             entry.delete(0, tk.END)

@@ -104,7 +104,7 @@ class ZeroImpactProcessor:
             result = subprocess.run(cmd, capture_output=True, text=True)
             
             if result.returncode == 0 and os.path.exists(audio_path):
-                print("✅ 音频提取成功")
+                print("✅ audio extract successfully")
                 audio_features = self.extract_audio_features(audio_path)
             else:
                 print("⚠️ ffmpeg提取失败，尝试librosa...")
@@ -112,13 +112,13 @@ class ZeroImpactProcessor:
                     audio, sr = librosa.load(mov_path, sr=16000)
                     librosa.output.write_wav(audio_path, audio, sr)
                     audio_features = self.extract_audio_features(audio_path)
-                    print("✅ librosa音频提取成功")
+                    print("✅ librosa audio extract successfully")
                 except Exception as e:
                     print(f"❌ 音频提取失败: {e}")
                     audio_features = np.random.normal(0, 1, (50, 20)).astype(np.float32)
             
             # 提取视频特征
-            print("🎥 提取视频特征...")
+            print("🎥 extract video features...")
             video_features = self.extract_video_features(mov_path)
             
             return audio_features, video_features
@@ -144,7 +144,7 @@ class ZeroImpactProcessor:
                 pad_width = 50 - mfcc.shape[1]
                 mfcc = np.pad(mfcc, ((0, 0), (0, pad_width)), mode='constant')
             
-            print(f"✅ 音频特征形状: {mfcc.T.shape}")
+            print(f"✅ audio features shape: {mfcc.T.shape}")
             return mfcc.T.astype(np.float32)
         except Exception as e:
             print(f"❌ 音频特征提取失败: {e}")
@@ -180,7 +180,7 @@ class ZeroImpactProcessor:
             while len(features) < 50:
                 features.append([0.0] * 5)
             
-            print(f"✅ 视频特征形状: {np.array(features).shape}")
+            print(f"✅ Video feature shape: {np.array(features).shape}")
             return np.array(features, dtype=np.float32)
         except Exception as e:
             print(f"❌ 视频特征提取失败: {e}")
