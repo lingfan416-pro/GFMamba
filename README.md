@@ -117,6 +117,6 @@ The full model will report the regression score, label, and which modalities wer
 
 
 ## License
-This project is based on [GFMamba](https://github.com/user/originalrepo](https://github.com/zzhe232/GFMamba),  
+This project is based on [GFMamba][https://github.com/user/originalrepo](https://github.com/zzhe232/GFMamba),  
 licensed under the MIT License.  
 Modifications © 2025 HCI Group 12.
